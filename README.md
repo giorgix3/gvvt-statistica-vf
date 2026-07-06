@@ -69,6 +69,8 @@ Every push to `main` triggers the [deploy workflow](.github/workflows/deploy.yml
 
 **Required repository secrets** (Settings → Secrets and variables → Actions):
 
+**Secrets** (Settings → Secrets and variables → Actions → Secrets):
+
 | Secret | Description |
 |---|---|
 | `VF_APP_KEY` | Vereinsflieger app key |
@@ -76,6 +78,11 @@ Every push to `main` triggers the [deploy workflow](.github/workflows/deploy.yml
 | `FTP_HOST` | FTP hostname of your hosting provider |
 | `FTP_USER` | FTP username |
 | `FTP_PASSWORD` | FTP password |
+
+**Variables** (Settings → Secrets and variables → Actions → Variables):
+
+| Variable | Value |
+|---|---|
 | `FTP_PATH` | Remote path, e.g. `/public_html/statistica/` |
 
 ---

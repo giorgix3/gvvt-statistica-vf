@@ -1,0 +1,67 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the repository ─────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── 2. Set up PHP ────────────────────────────────────────────────────────
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, zip, mbstring, xml
+          tools: composer:v2
+          coverage: none
+
+      # ── 3. Cache Composer dependencies ──────────────────────────────────────
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: v2/vendor
+          key: composer-${{ hashFiles('v2/composer.lock') }}
+          restore-keys: composer-
+
+      # ── 4. Install PHP dependencies ──────────────────────────────────────────
+      - name: Install dependencies
+        working-directory: v2
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      # ── 5. Write the .env file from GitHub Secrets ───────────────────────────
+      #  Go to: repo → Settings → Secrets and variables → Actions → New secret
+      #  Add:  VF_APP_KEY, VF_CLUB_ID, FTP_HOST, FTP_USER, FTP_PASSWORD, FTP_PATH
+      - name: Write .env
+        working-directory: v2
+        run: |
+          cat > .env <<EOF
+          VF_APP_KEY=${{ secrets.VF_APP_KEY }}
+          VF_CLUB_ID=${{ secrets.VF_CLUB_ID }}
+          EOF
+
+      # ── 6. Deploy via FTP ────────────────────────────────────────────────────
+      #  Uses SamKirkland/FTP-Deploy-Action — no server-side tools required.
+      #  Only files that changed since the last deploy are uploaded (git diff).
+      - name: Deploy to hosting via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:            ${{ secrets.FTP_HOST }}
+          username:          ${{ secrets.FTP_USER }}
+          password:          ${{ secrets.FTP_PASSWORD }}
+          server-dir:        ${{ vars.FTP_PATH }}
+          local-dir:         ./v2/
+          # Exclude things the server doesn't need
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/composer.json
+            **/composer.lock
+            **/.env.example
