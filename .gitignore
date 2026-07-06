@@ -1,0 +1,14 @@
+# Dependencies — installed by the CI pipeline, not committed
+/vendor/
+
+# Real secrets — never commit
+.env
+
+# Composer binary if downloaded locally
+composer.phar
+
+# Generated Excel files
+/Tables/
+
+# macOS
+.DS_Store

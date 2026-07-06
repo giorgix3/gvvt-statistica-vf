@@ -1,0 +1,13 @@
+{
+    "name": "gvvt/statistica",
+    "description": "GVVT flight statistics — Vereinsflieger REST API client",
+    "require": {
+        "php": "^8.1",
+        "phpoffice/phpspreadsheet": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gvvt\\": "src/"
+        }
+    }
+}

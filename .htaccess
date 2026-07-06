@@ -1,0 +1,7 @@
+# No CGI handler needed — all PHP
+Options -ExecCGI
+
+# Prevent direct access to src/
+<FilesMatch "^(composer\.json|composer\.lock)$">
+    Require all denied
+</FilesMatch>
