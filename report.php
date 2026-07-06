@@ -76,8 +76,9 @@ $displayMonth = date('F Y', strtotime($requestedMonth . '-01'));
 
     /* ── Top bar ── */
     .topbar {
-      background: #1e3a8a;
-      color: #fff;
+      background: #f0f2f7;
+      border-bottom: 1px solid #dde1ec;
+      color: #1a1f2e;
       padding: 0 24px;
       display: flex;
       align-items: center;
@@ -93,15 +94,15 @@ $displayMonth = date('F Y', strtotime($requestedMonth . '-01'));
       font-size: 15px;
       letter-spacing: -.2px;
       text-decoration: none;
-      color: #fff;
+      color: #1a1f2e;
     }
     .topbar-brand img { width: 32px; height: auto; }
     .topbar-logout {
       font-size: 12px;
-      color: #93c5fd;
+      color: #3b6fd4;
       text-decoration: none;
     }
-    .topbar-logout:hover { color: #fff; }
+    .topbar-logout:hover { color: #1a1f2e; }
 
     /* ── Layout ── */
     .page { max-width: 960px; margin: 0 auto; padding: 28px 20px 48px; }
@@ -333,7 +334,6 @@ $displayMonth = date('F Y', strtotime($requestedMonth . '-01'));
 
     <?php endif; ?>
 
-    <footer class="page-footer">Made with IBM Bob</footer>
   </div>
 
 </body>

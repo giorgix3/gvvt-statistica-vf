@@ -15,7 +15,7 @@ namespace Gvvt;
 class FlightAssembler
 {
     // Aircraft excluded from all output
-    private const EXCLUDED_AIRCRAFT = ['T7-PCS', 'HB-SDK', 'HB-SDV', 'HB-PEH', 'HB-RBN', 'HB-RBC', 'HB-WAW'];
+    private const EXCLUDED_AIRCRAFT = ['T7-PCS', 'HB-SDK', 'HB-SDV', 'HB-PEH', 'HB-RBN', 'HB-RBC', 'HB-WAW', 'HB-NPN'];
 
     // Aircraft excluded only from the .xlsx export
     private const EXCLUDED_FROM_EXPORT = ['F-PTUN', 'HB-KMW', 'HB-RCQ'];
